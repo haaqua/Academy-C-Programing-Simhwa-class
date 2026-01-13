@@ -1,61 +1,49 @@
 #include<stdio.h>
-#include<windows.h>
-#define SIZE 11	
-
-
-int main() 
+void shuffle(int array[], int array_size)
 {
-#pragma region 포인터배열
-	const char* talk[SIZE];
+	for (int i = 0; i < array_size; i++) {
+		int seed = rand() % array_size;
+		int temporary = array[seed];
 
-	talk[0] = "어서옵쇼~";
-	talk[1] = "탐정양반. 의뢰하나 하러왔네.";
-	talk[2] = "네~. 뭐때문에 왔는데요~?";
-	talk[3] = "(아무개)기업 알지?";
-	talk[4] = "네~ 인공신체 관련된 사업으로 돈 많이 벌었다는 거기요? 알죠~.";
-	talk[5] = "요즘 거기서 들어오는 소문이 이상해. 고아들을 대리고 이상한 실험을 한다던가 그런..";
-	talk[6] = "그런 찌라시는 걍 다른 기업에서 만든 괴담 아닌가요? (어디서 이상한거 주워듣고 왔어...)";
-	talk[7] = "그런거 같기는 한데 그 기업이 계속 이상한 행동을 보이니까 하는 말이야. 몇일 전에는 거기에서 나오는 폐수처리장에서 사람 피가 나오지 않나...";
-	talk[8] = "그럼 걍 경찰한테 신고하세요. 그런 물증도 있으면 경찰도 조사하겠죠.";
-	talk[9] = "내 친구중 한명이 경찰한테 말하러 갔어. 근데 그 친구랑 같이 소식이 끊겨서 그래.";
-	talk[10] = "아이 @$ 이상한 일에 얽혔네.(뭐, 일단 해볼께요~.)";
-
-	// 0x0000 : 이전에 누른 적이 없고 호출 시점에도 눌려있지 않은 상태
-
-	// 0x0001 : 이전에 누른 적이 있고 호출 시점에는 눌려있지 않은 상태
-
-	// 0x8000 : 이전에 누른 적이 없고 호출 시점에는 눌려있는 상태
-
-	// 0x8001 : 이전에 누른 적이 있고 호출 시점에는 눌려있는 상태
-
-	int i = 0;
-	while (1) 
-	{
-		if (GetAsyncKeyState(VK_SPACE) & 0x0001) 
-		{
-			if (i % 2 == 0) {
-				printf("탐정 : ");
-			}
-			else {
-				printf("의뢰인 : ");
-			}
-
-			printf("space를 눌러 넘어가기.\n");
-			
-			i++;
-		}
+		array[seed] = array[i];
+		array[i] = temporary;
 	}
+}
+int main() {
+#pragma region 의사 난수
+	// 0 ~ 32767 사이의 난수 값을 반환하는 함수
 
+	// UTC 기준으로 1970년 1월 1일 0시 0분 0초부터 경과된 시간을 
+	// 초(sec)로 반환하는 함수
+
+	// srand : rand()가 사용할 초기값(seed)을 설정하는 함수
+
+	/*srand(time(NULL));
+
+	int random = rand() % 10 + 1;
+
+	printf("random : %d\n",random);*/
 
 #pragma endregion
 
-	// 비동기 키 입력
-	// 동기   : 하나의 일을 할때동안 다른 일을 하지 못하는 것
-	// 비동기 : 하나의 일을 다 끝내지 않고 잠시 멈추고 다른 일들을 할 수 있는 것
+#pragma region 셔플 함수
 
+	srand(time(NULL));
+	int array[10] = { 1,2,3,4,5,6,7,8,9,10 };
 
+	int size = sizeof(array) / sizeof(array[0]);
 
-	// 포인터 배열
+	for (int i = 0; i < 10; i++) {
+		printf("%d ", array[i]);
+	}
+	printf("\n");
+	shuffle(array, 10);
+	for (int i = 0; i < 10; i++) {
+		printf("%d ", array[i]);
+	}
+
+#pragma endregion
+
 
 	return 0;
 }
