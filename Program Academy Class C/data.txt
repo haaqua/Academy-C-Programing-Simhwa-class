@@ -1,0 +1,6 @@
+character info
+hp : 
+mp : 
+str : 
+dex : 
+wis : 
